@@ -1,7 +1,8 @@
 from create_assembly_folders import create_assembly_folders
 from rev_manage import rev_manage
 from rename_drafts_in_folders import rename_drafts_in_folders
-from modify_properties import modify_properties
+from set_properties import set_properties
+import pickle
 
 # create_assembly_folders
 draft_folder_paths = [
@@ -32,7 +33,11 @@ rev_manage(drafts_found, created_folders)
 # rename_drafts_in_folders
 renamed_files = rename_drafts_in_folders(created_folders)
 
-# modify_properties
+# Cache the renamed_files using pickle so they can be used to update draft properties in the update_properties.py file
+with open('renamed_files_cache.pkl', 'wb') as cache_file:
+    pickle.dump(renamed_files, cache_file)
+
+# set_properties
 summary_information = {
     "Subject": "Kansas City, MO",
     # "Author": "",
@@ -63,5 +68,5 @@ custom_information = {
     "MSS Job No:": "20233031",
 }
 
-modify_properties(renamed_files, summary_information,
+set_properties(renamed_files, summary_information,
                   document_summary_information, project_information, custom_information)

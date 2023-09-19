@@ -2,7 +2,7 @@ import win32com.client
 import os
 
 
-def modify_properties(file_paths, summary_information, document_summary_information, project_information, custom_information):
+def set_properties(file_paths, summary_information, document_summary_information, project_information, custom_information):
     # Connect to Solid Edge using early binding
     application = win32com.client.gencache.EnsureDispatch(
         "SolidEdge.Application")
@@ -67,7 +67,7 @@ def modify_properties(file_paths, summary_information, document_summary_informat
 
         # Save and close the draft document
         draft_document.Save()
-        draft_document.Close()
+        # draft_document.Close()
 
 
 # # Example usage
@@ -78,7 +78,7 @@ def modify_properties(file_paths, summary_information, document_summary_informat
 
 # document_summary_information = {
 #     "Manager": "JDE",
-#     "Company": "MAVERICK APPLIED SCIENCE, INC."
+#     "Company": "VAMSHI APPLIED TANKS, INC."
 # }
 
 # project_information = {
@@ -89,7 +89,7 @@ def modify_properties(file_paths, summary_information, document_summary_informat
 
 # custom_information = {
 #     "CHECKED BY:": "JF",
-#     "DATE": "09/12/23",
+#     "DATE": "09/18/23",
 #     "COMPANY ADDRESS": "PALMETTO, FL",
 #     "DRAWN BY:": "PM",
 #     "APPROVED BY:": "DJM",
@@ -108,5 +108,5 @@ def modify_properties(file_paths, summary_information, document_summary_informat
 #  r"C:\Users\phpai\Desktop\Jobs\20233031\Working Drawings\3031-0104-S8-10\3031-0104-S8-10.dft",
 # ]
 
-# modify_properties(file_paths, summary_information,
+# set_properties(file_paths, summary_information,
 #                   document_summary_information, project_information, custom_information)
