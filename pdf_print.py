@@ -45,7 +45,7 @@ def pdf_print(working_drawings_folder):
         application = win32com.client.Dispatch("SolidEdge.Application")
         application.Visible = True
         # SolidEdgeFramework = win32com.client.Dispatch("SolidEdgeFramework.Application")
-        SolidEdgeConstants = win32com.client.Dispatch("SolidEdge.ConstantsModule")
+        # SolidEdgeConstants = win32com.client.Dispatch("SolidEdge.ConstantsModule")
 
         # Set the global setting to save all sheets to PDF
         # application.SetGlobalParameter(
@@ -74,6 +74,9 @@ def pdf_print(working_drawings_folder):
 
         # Open the .dft file
         document = application.Documents.Open(dft_file)
+
+        # for sheet in document.Sheets:
+        #     print(f"Sheet name: {sheet.Name}")
         
         # Save as PDF
         document.SaveAs(output_file, 0x27)
