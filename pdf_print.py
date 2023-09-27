@@ -1,11 +1,14 @@
 import win32com.client
 import os
+import re
 
 
 
 def pdf_print(working_drawings_folder):
     '''
-    PDF Printing function
+    This function saves the drafts in the assembly subfolders inside of the Working Drawings folder as corresponding PDF files in the Submittal\Fab Latest Revision
+    and Submittal\GA Latest Revision. All draft sheets are saved in a corresponding PDF file in the Fab Latest Revision folder, while
+    only the two first draft sheets are saved in a corresponding PDF file in the GA Latest Revision folder.
     '''
 
     dft_files = []  # List to store paths of .dft files
@@ -44,42 +47,48 @@ def pdf_print(working_drawings_folder):
     try:
         application = win32com.client.Dispatch("SolidEdge.Application")
         application.Visible = True
-        # SolidEdgeFramework = win32com.client.Dispatch("SolidEdgeFramework.Application")
-        # SolidEdgeConstants = win32com.client.Dispatch("SolidEdge.ConstantsModule")
-
-        # Set the global setting to save all sheets to PDF
-        # application.SetGlobalParameter(
-        #     SolidEdgeFramework.ApplicationGlobalConstants.seApplicationGlobalDraftSaveAsPDFSheetOptions,
-        #     SolidEdgeConstants.DraftSaveAsPDFSheetOptionsConstants.seDraftSaveAsPDFSheetOptionsConstantsAllSheets
-        # )
     except Exception as e:
         print(f"Error trying to connect to Solid Edge: {e}")
 
-    # Loop through each .dft file and convert it
-    for dft_file in dft_files:
-        # Compute the new file path in "Fab Latest Revision" folder
-        base_filename = os.path.basename(dft_file)
-        pdf_filename = os.path.splitext(base_filename)[0] + '.pdf'
-        
-        # Construct the output directory: ".../Submittal/Fab Latest Revision/"
-        output_dir = os.path.join(os.path.dirname(working_drawings_folder), "Submittal", "Fab Latest Revision")
-        output_file = os.path.join(output_dir, pdf_filename)
 
-        # Print the intended output path (for debugging purposes)
-        print(f"Attempting to save: {output_file}")
+    latest_rev_folders = ['Fab Latest Revision', 'GA Latest Revision']
 
-        # Create output directory if it doesn't exist
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
+    for rev_folder in latest_rev_folders:
+        if rev_folder == 'Fab Latest Revision':
+            # All PDFs
+            application.SetGlobalParameter(172, 1)
 
-        # Open the .dft file
-        document = application.Documents.Open(dft_file)
+        elif rev_folder == 'GA Latest Revision':
+            # Selected PDFs
+            application.SetGlobalParameter(172, 2)
+            application.SetGlobalParameter(173, "1,2")
 
-        # for sheet in document.Sheets:
-        #     print(f"Sheet name: {sheet.Name}")
-        
-        # Save as PDF
-        document.SaveAs(output_file, 0x27)
+        # Loop through each .dft file and convert it
+        for dft_file in dft_files:
+            # Compute the new file path in "Fab Latest Revision" folder
+            base_filename = os.path.basename(dft_file)
+            pdf_filename = os.path.splitext(base_filename)[0] + '.pdf'
+            
+            # Construct the output directory: ".../Submittal/Fab Latest Revision/" or ".../Submittal/GA Latest Revision/"
+            output_dir = os.path.join(os.path.dirname(working_drawings_folder), "Submittal", rev_folder)
+            output_file = os.path.join(output_dir, pdf_filename)
+
+            # Print the intended output path (for debugging purposes)
+            print(f"Attempting to save: {output_file}")
+
+            # Create output directory if it doesn't exist
+            if not os.path.exists(output_dir):
+                os.makedirs(output_dir)
+
+            # Open the .dft file
+            document = application.Documents.Open(dft_file)
+
+            # for sheet in document.Sheets:
+            #     print(f"Sheet name: {sheet.Name}")
+            
+            # Save as PDF
+            document.SaveAs(output_file, 0x27)
+
 
 
 # Example usage
