@@ -1,6 +1,5 @@
 import win32com.client
 import os
-import re
 
 
 
