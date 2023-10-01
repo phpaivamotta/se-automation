@@ -19,8 +19,8 @@ def rev_manage(draft_files, created_folders):
     # Ensure the number of draft files matches the number of created folders
     if len(draft_files) != len(created_folders):
         print("Mismatch between number of draft files and created folders.")
-        return results
-
+        return
+    
     # Create an instance of the DesignManager application once
     application = win32com.client.Dispatch("DesignManager.Application")
     application.Visible = True

@@ -16,7 +16,8 @@ def create_assembly_folders(draft_folder_paths, job_folder_path):
 
     # Check if job folder path exists
     if not os.path.exists(job_folder_path):
-        return f"The job folder path '{job_folder_path}' does not exist.", []
+        print(f"The job folder path '{job_folder_path}' does not exist.")
+        return
 
     # Ensure "Working Drawings" folder exists
     if not job_folder_path.endswith("Working Drawings"):
@@ -40,8 +41,7 @@ def create_assembly_folders(draft_folder_paths, job_folder_path):
             return f"The draft folder path '{folder_path}' does not exist.", []
 
         # Search for the draft file in the folder
-        draft_files = [f for f in os.listdir(
-            folder_path) if f.endswith('.dft')]
+        draft_files = [f for f in os.listdir(folder_path) if f.endswith('.dft')]
 
         if len(draft_files) != 1:
             print(
