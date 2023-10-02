@@ -7,25 +7,25 @@ with open('renamed_files_cache.pkl', 'rb') as cache_file:
 
 # properties to be updated
 summary_information = {
-    "Subject": "Kansas City, MO",
+    "Subject": "KANSAS CITY, MO",
     # "Author": "",
 }
 
 document_summary_information = {
     "Manager": "JDE",
-    "Company": "VAMSHI APPLIED TANKS, INC."
+    "Company": "MAVERICK APPLIED SCIENCE, INC."
 }
 
 project_information = {
     "Document Number": "3031",
     "Revision": "C",
-    "Project Name": "Brine Tank"
+    "Project Name": "BRINE TANK"
 }
 
 custom_information = {
     "CHECKED BY:": "JF",
-    "DATE": "09/18/23",
-    "COMPANY ADDRESS": "PALMETTO, FL",
+    "DATE": "09/26/23",
+    "COMPANY ADDRESS:": "PALMETTO, FL",
     "DRAWN BY:": "PM",
     "APPROVED BY:": "DJM",
     "Customer P.O.:": "12356",

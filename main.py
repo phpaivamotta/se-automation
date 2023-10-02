@@ -6,12 +6,12 @@ import pickle
 
 # create_assembly_folders
 draft_folder_paths = [
-    r"C:\Users\phpai\Desktop\Templates\S7\S7-8",
-    r"C:\Users\phpai\Desktop\Templates\S7\S7-10",
-    r"C:\Users\phpai\Desktop\Templates\S8\S8-8",
-    r"C:\Users\phpai\Desktop\Templates\S8\S8-10",
+    r"F:\MAS\Solid Edge Parts Library\Pipe Support Templates\S7\S7-8",
+    r"F:\MAS\Solid Edge Parts Library\Pipe Support Templates\S7\S7-10",
+    r"F:\MAS\Solid Edge Parts Library\Pipe Support Templates\S8\S8-8",
+    r"F:\MAS\Solid Edge Parts Library\Pipe Support Templates\S8\S8-10",
 ]
-job_folder_path = r"C:\Users\phpai\Desktop\Jobs\20233031\Working Drawings"
+job_folder_path = r"C:\Users\pmotto\OneDrive - Maverick Applied Science\Desktop\Jobs\20233031"
 
 created_folders, drafts_found = create_assembly_folders(
     draft_folder_paths, job_folder_path)
@@ -57,7 +57,7 @@ project_information = {
 custom_information = {
     "CHECKED BY:": "JF",
     "DATE": "09/15/23",
-    "COMPANY ADDRESS": "PALMETTO, FL",
+    "COMPANY ADDRESS:": "PALMETTO, FL",
     "DRAWN BY:": "PM",
     "APPROVED BY:": "DJM",
     "Customer P.O.:": "12356",
