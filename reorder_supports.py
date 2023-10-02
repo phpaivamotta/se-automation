@@ -6,6 +6,9 @@ import win32com.client
 def reorder_supports(reordered_supports_dirs):
     '''
     Reorder supports
+
+    This function should be used when adding new supports to a job that already has
+    supports in the Working Drawings folder. This function modifies the folder name, draft name and Drawing Number property of the supports to reorder them according to desired order.
     '''
 
     drawing_number = 101
@@ -16,6 +19,7 @@ def reorder_supports(reordered_supports_dirs):
     except Exception as e:
         print(f"Error trying to connect to Solid Edge: {e}")
 
+    # Loop through each support subfolder inside of the working drawings folder
     for support_dir in reordered_supports_dirs:
         # Check support folder path exists
         if not os.path.exists(support_dir):
@@ -28,6 +32,8 @@ def reorder_supports(reordered_supports_dirs):
         new_folder_name = f"{chunks[0]}-{drawing_number:04}-{chunks[2]}-{chunks[3]}"
         new_folder_path = os.path.join(os.path.dirname(support_dir), new_folder_name)
 
+        # check if support is in the same order as previously
+        # if support was not reordered, skips to next iteration
         if support_dir == new_folder_path:
             drawing_number += 1
             continue
@@ -61,8 +67,8 @@ def reorder_supports(reordered_supports_dirs):
 #example usage
 reordered_supports_dirs = [
     r"C:\Users\phpai\Desktop\Jobs\20233031\Working Drawings\3031-0101-S7-8",
-    r"C:\Users\phpai\Desktop\Jobs\20233031\Working Drawings\3031-0102-S7-10",
     r"C:\Users\phpai\Desktop\Jobs\20233031\Working Drawings\3031-0101-S8-8",
+    r"C:\Users\phpai\Desktop\Jobs\20233031\Working Drawings\3031-0102-S7-10",
     r"C:\Users\phpai\Desktop\Jobs\20233031\Working Drawings\3031-0102-S8-10",
     ]
 reorder_supports(reordered_supports_dirs)
