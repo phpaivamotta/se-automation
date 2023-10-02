@@ -10,6 +10,38 @@ def pdf_print_all(templates_dir_path, output_dir_path):
     only the two first draft sheets are saved in a corresponding PDF file in the GA Latest Revision folder.
     '''
 
+    folders_not_included = [
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\2010 Catalog Supports (Old Catalog Models)',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\2010 In House Catalog & Guidelines',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\2013 In House Catalog & Guidelines',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\2014 SCS Support Templates',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\D4G',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\HP17',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\HP18',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\HP19',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\HP20',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\HS9B',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\HS12B',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\HS13B',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\HS14',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\HS15B',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\NOTES & MISC',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\P8LL',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\P9LL',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\P13-P14',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\S3(special)',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\S12 Scallops',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\S12B Scallops',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\S13 Scallops',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\S13B Scallops',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\S14 Scallops',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\XL12',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\XL13',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\XL14',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\S2\S2WP_BO',
+        r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates\S2\S2-FRP',
+    ]
+
     # Create output directory if it doesn't exist
     if not os.path.exists(output_dir_path):
         return print(f'Output directory {output_dir_path} does NOT exist. Aborting operation.')
@@ -20,8 +52,13 @@ def pdf_print_all(templates_dir_path, output_dir_path):
     # Loop through the directory tree
     for dirpath, dirnames, filenames in os.walk(templates_dir_path):
 
-        # Skip checks for the main directory itself
+        # Skip main directory itself
         if dirpath == templates_dir_path:
+            continue
+
+        # Skip unwanted folders and all their subfolders
+        if any(dirpath.startswith(excluded_folder) for excluded_folder in folders_not_included):
+            del dirnames[:]  # this line will prevent os.walk from traversing into the subdirectories
             continue
 
         # Check if the directory is empty
@@ -81,7 +118,7 @@ def pdf_print_all(templates_dir_path, output_dir_path):
 
 
 # Example usage
-templates_dir_path = r'C:\Users\phpai\Desktop\Templates'
-output_dir_path = r'C:\Users\phpai\Desktop\9-29-23 PDF for Pricing'
+templates_dir_path = r'F:\MAS\Solid Edge Parts Library\Pipe Support Templates'
+output_dir_path = r'F:\MAS\Pipe Supports\Quotes\2020- Support Prices\9-29-23 PDF for Pricing - Auto'
 
 pdf_print_all(templates_dir_path, output_dir_path)
